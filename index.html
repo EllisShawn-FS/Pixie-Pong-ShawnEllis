@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixie Pong</title>
+</head>
+<body>
+    <game id="game"></game>
+
+    <!-- Loading PixiJS -->
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+
+
+    <!-- ES6 Code Placed Here -->
+    <script type="module">
+        const game = new PIXI.Application();
+
+
+        //Making Background of Game
+        await game.init ({
+            backgroundColor: "#3398b9",
+            width: 800,
+            height: 800
+         });
+
+
+         // Telling PixiJS what element we want to show our game
+         document.getElementById("game").appendChild(game.canvas);
+
+
+         // Making the Circle for game
+         const circle = new PIXI.Graphics()
+         circle.beginFill("#f5ef42");
+         circle.drawCircle(400, 400, 5)
+         circle.endFill()
+         game.stage.addChild(circle)
+
+
+
+
+
+
+
+// LOGIC TO ADD
+    /* 
+    Pixel-Perfect Hit Detection -
+         The circle’s X,Y coordinates are based on its center. You will need to perform some quick calculations based on the border's width and the size of the circle to determine the exact hit detection spot, ensuring the edge of the circle bounces off the border perfectly without passing through it.
+
+
+    Border Color Change once hit (All 4 sides have different colors) 
+
+    Random Circle Movement -
+         Randomize the circles velocity and direction for the start of game.
+    */
+
+
+    </script>
+
+
+</body>
+</html>
