@@ -6,6 +6,7 @@
     <title>Pixie Pong</title>
 </head>
 <body>
+    <h1>Eagles Color Scheme</h1>
     <game id="game"></game>
 
     <!-- Loading PixiJS -->
@@ -19,26 +20,67 @@
 
         //Making Background of Game
         await game.init ({
-            backgroundColor: "#3398b9",
+            backgroundColor: "#000000",
             width: 800,
             height: 800
          });
+
+         game.canvas.style.border = "15px solid blue";
 
 
          // Telling PixiJS what element we want to show our game
          document.getElementById("game").appendChild(game.canvas);
 
 
+
+
          // Making the Circle for game
          const circle = new PIXI.Graphics()
          circle.beginFill("#f5ef42");
-         circle.drawCircle(400, 400, 5)
+         circle.drawCircle(5, 5, 5)
          circle.endFill()
+
+         //Spawn
+         circle.x = 400;
+         circle.y = 400;
+
+         // Circle Movement Randomized
+         let xv = (Math.random() > 0.5 ? 2 : -1) * Math.random() * 2; 
+         let yv = (Math.random() > 0.5 ? 2 : -1) * Math.random() * 2; 
+         
          game.stage.addChild(circle)
 
 
+        // Game Ticker
+         game.ticker.add(() => {
+            const borderColors = {
+                top: "#8a8d8f",
+                bottom: "#91999f",
+                right: "#067fd0",
+                left: "#6f06f7"
+            };
+
+            // If circle hits border
+            if (circle.x >= 800) {
+                xv = -xv;
+                game.canvas.style.borderColor = borderColors.right;
+            } else if (circle.x <=  0) {
+                xv = -xv;
+                game.canvas.style.borderColor = borderColors.left;
+            }
+
+            if (circle.y >= 800 || circle.y <=  0) {
+                yv = -yv
+                game.canvas.style.borderColor = borderColors.top;
+            }
+
+            circle.x += xv;
+            circle.y += yv;
 
 
+           
+
+         })
 
 
 
@@ -50,12 +92,13 @@
 
     Border Color Change once hit (All 4 sides have different colors) 
 
-    Random Circle Movement -
+    Random Circle Movement - DONE
          Randomize the circles velocity and direction for the start of game.
     */
 
 
     </script>
+
 
 
 </body>
