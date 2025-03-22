@@ -32,8 +32,6 @@
          document.getElementById("game").appendChild(game.canvas);
 
 
-
-
          // Making the Circle for game
          const circle = new PIXI.Graphics()
          circle.beginFill("#f5ef42");
@@ -45,11 +43,25 @@
          circle.y = 400;
 
          // Circle Movement Randomized
-         let xv = (Math.random() > 0.5 ? 2 : -1) * Math.random() * 2; 
-         let yv = (Math.random() > 0.5 ? 2 : -1) * Math.random() * 2; 
+         let xv = (Math.random() > 0.5 ? 3 : -1) * Math.random() * 2; 
+         let yv = (Math.random() > 0.5 ? 3 : -1) * Math.random() * 2; 
          
          game.stage.addChild(circle)
 
+         const sidesHit = {
+            top: false,
+            bottom: false,
+            left: false,
+            right: false
+         };
+
+        function checkGameEnd() {
+            if (sidesHit.top && sidesHit.bottom && sidesHit.left && sidesHit.right) {
+            alert("That's All Folks! All sides hit!");
+            game.ticker.stop(); 
+            
+            }   
+        }
 
         // Game Ticker
          game.ticker.add(() => {
@@ -64,42 +76,43 @@
             if (circle.x >= 800) {
                 xv = -xv;
                 game.canvas.style.borderColor = borderColors.right;
+                sidesHit.right = true;
+                checkGameEnd();
             } else if (circle.x <=  0) {
                 xv = -xv;
                 game.canvas.style.borderColor = borderColors.left;
+                sidesHit.left = true;
+                checkGameEnd();
             }
 
-            if (circle.y >= 800 || circle.y <=  0) {
-                yv = -yv
+            if (circle.y >= 800) {
+                yv = -yv;
                 game.canvas.style.borderColor = borderColors.top;
+                sidesHit.top = true;
+                checkGameEnd();
+            } else if(circle.y <=  0) {
+                yv = -yv;
+                game.canvas.style.borderColor = borderColors.bottom;
+                sidesHit.bottom = true;
+                checkGameEnd();
             }
 
             circle.x += xv;
             circle.y += yv;
 
-
-           
-
          })
 
+         function gameEnd() {
+            if(circle.x >= 800 &&
+                circle.x >= 0 &&
+                circle.y >= 800 &&
+                circle.y >= 0
+            ){
+                alert ("You won!")
+            }
+         };
 
-
-// LOGIC TO ADD
-    /* 
-    Pixel-Perfect Hit Detection -
-         The circle’s X,Y coordinates are based on its center. You will need to perform some quick calculations based on the border's width and the size of the circle to determine the exact hit detection spot, ensuring the edge of the circle bounces off the border perfectly without passing through it.
-
-
-    Border Color Change once hit (All 4 sides have different colors) 
-
-    Random Circle Movement - DONE
-         Randomize the circles velocity and direction for the start of game.
-    */
-
-
+         gameEnd();
     </script>
-
-
-
 </body>
 </html>
