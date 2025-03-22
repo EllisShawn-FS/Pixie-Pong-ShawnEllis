@@ -58,8 +58,15 @@
         function checkGameEnd() {
             if (sidesHit.top && sidesHit.bottom && sidesHit.left && sidesHit.right) {
             alert("That's All Folks! All sides hit!");
-            game.ticker.stop(); 
             
+            
+            const gameOver = document.createElement("h2");
+            gameOver.innerText = "Game Over!";
+            gameOver.style.color = "blue";
+            gameOver.style.textAlign = "center";
+            document.body.append(gameOver);
+
+            game.ticker.stop(); 
             }   
         }
 
